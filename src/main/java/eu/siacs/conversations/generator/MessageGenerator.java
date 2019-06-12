@@ -68,6 +68,8 @@ public class MessageGenerator extends AbstractGenerator {
 				"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US);
 		mDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 		Element delay = packet.addChild("delay", "urn:xmpp:delay");
+
+		
 		Date date = new Date(timestamp);
 		delay.setAttribute("stamp", mDateFormat.format(date));
 	}
