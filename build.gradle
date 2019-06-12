@@ -14,9 +14,9 @@ buildscript {
     repositories {
         google()
         jcenter()
-//        maven {
-//            url "https://plugins.gradle.org/m2/"
-//        }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
 //        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.7.1"
@@ -48,7 +48,7 @@ ext {
 }
 
 dependencies {
-//    annotationProcessor "com.google.auto.value:auto-value:1.1"
+    annotationProcessor "com.google.auto.value:auto-value:1.1"
     playstoreImplementation('com.google.firebase:firebase-messaging:17.3.4') {
         exclude group: 'com.google.firebase', module: 'firebase-core'
         exclude group: 'com.google.firebase', module: 'firebase-analytics'
@@ -86,13 +86,13 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     implementation 'com.google.guava:guava:27.1-android'
     quicksyImplementation 'io.michaelrocks:libphonenumber-android:8.10.1'
-//    testImplementation 'junit:junit:4.12'
-//    testImplementation 'org.mockito:mockito-core:1.10.19'
-//    testImplementation 'org.robolectric:robolectric:4.3'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:1.10.19'
+    testImplementation 'org.robolectric:robolectric:4.3'
+    implementation 'junit:junit:4.12'
+    implementation 'org.mockito:mockito-core:1.10.19'
+    implementation 'org.robolectric:robolectric:4.3'
 //    implementation 'junit:junit:4.12'
-//    implementation 'org.mockito:mockito-core:1.10.19'
-//    implementation 'org.robolectric:robolectric:4.3'
-////    implementation 'junit:junit:4.12'
 }
 
 ext {
@@ -103,12 +103,12 @@ ext {
 
 android {
     compileSdkVersion 28
-//    testOptions {
-//        unitTests {
-//            includeAndroidResources = true
-//            returnDefaultValues = true
-//        }
-//    }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+            returnDefaultValues = true
+        }
+    }
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 28
@@ -119,11 +119,11 @@ android {
         resValue "string", "applicationId", applicationId
         resValue "string", "app_name", "Conversations"
         buildConfigField "String", "LOGTAG", "\"conversations\""
-//        javaCompileOptions {
-//            annotationProcessorOptions {
-//                includeCompileClasspath = true
-//            }
-//        }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
     }
 
     dataBinding {
