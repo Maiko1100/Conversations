@@ -16,7 +16,5 @@ script:
 addons:
   sonarcloud:
     organization: "maikokuipers-bitbucket"
-    token:
-      secure: "0GCkDgmR92DrgokKEuxJvwY2KGQ+vLa2hTe92VigKDKwosftLOUWLe9ePXdZdhDASKwPJdcMW3Rvbq2Kl0UVss8K30YpdCMohh0Vm8FL6fVhZK6TJ0eqshlm/FMbRQrj9tKH2T7n5teaPtW9sjn6tXOjBi+HExwf6WmN3zsQK/Ip/C3jvtabC39dmfT9B32UArA9JpuB6E22veRi30RIcJUHPAtpgJ//PvrxvgCna/Fz+t+7WkmHJratI89GE+s1sthqCYXk5WVdH9AbX1tom2Xt4UHli/O6dBGFTc/c+3hKGw4jfA1XIdvBJ5nSb8n6rpsl3qlbDQEBnb0NE2aMTt4oisZSS+DtRsW0lvtWlkC9EYJn4aiOl0AXVNnC98YvzYFO3K41dZZKVIxWd1MyKVgCxrborO6yAV6OLjKhvSEnQQizbeI0nGVOFRf9DxqLptcsz+FkAlkZiE632c46pUYRdnzUApm6w1xnWlFSjmfu9O00RS4j32cwS9Bt4k8PfLwUHPyQ7y3fl1BoC1flFjpWKgl0zSjfPShtJGxMRTyLt8xvVN4ERWyVYy4zv1QCmbqDpQo/CEeseNyE2C+88nqFR8L8QrwHPd2j5XToVLgUd9dvFyFZyyK7/UdCaJjHAVwK1uZHKENMrewvgN7iA0C2jOe4pAYC2O5Ij+6iDLA="
 before_install:
     - yes | sdkmanager "platforms;android-28"
