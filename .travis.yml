@@ -12,7 +12,9 @@ android:
 script:
     - ./gradlew assembleConversationsFreeSystemRelease
     - ./gradlew assembleQuicksyFreeCompatRelease
-    - ./gradlew test
-
+    - sonar-scanner
+addons:
+  sonarcloud:
+    organization: "maikokuipers-bitbucket" #
 before_install:
     - yes | sdkmanager "platforms;android-28"
