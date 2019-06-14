@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Environment;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.robolectric.shadows.ShadowEnvironment;
 
 import eu.siacs.conversations.Config;
 import eu.siacs.conversations.entities.Account;
