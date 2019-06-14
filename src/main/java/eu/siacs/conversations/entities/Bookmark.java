@@ -28,7 +28,7 @@ public class Bookmark extends Element implements ListItem {
 		this.account = account;
 	}
 
-	private Bookmark(Account account) {
+	public Bookmark(Account account) {
 		super("conference");
 		this.account = account;
 	}

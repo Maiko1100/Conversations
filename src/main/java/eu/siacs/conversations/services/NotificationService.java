@@ -84,11 +84,11 @@ public class NotificationService {
     private boolean mIsInForeground;
     private long mLastNotification;
 
-    NotificationService(final XmppConnectionService service) {
+    public NotificationService(final XmppConnectionService service) {
         this.mXmppConnectionService = service;
     }
 
-    private static boolean displaySnoozeAction(List<Message> messages) {
+    public static boolean displaySnoozeAction(List<Message> messages) {
         int numberOfMessagesWithoutReply = 0;
         for (Message message : messages) {
             if (message.getStatus() == Message.STATUS_RECEIVED) {
@@ -353,7 +353,7 @@ public class NotificationService {
         markAsReadIfHasDirectReply(notifications.get(conversation.getUuid()));
     }
 
-    private void markAsReadIfHasDirectReply(final ArrayList<Message> messages) {
+    public void markAsReadIfHasDirectReply(final ArrayList<Message> messages) {
         if (messages != null && messages.size() > 0) {
             Message last = messages.get(messages.size() - 1);
             if (last.getStatus() != Message.STATUS_RECEIVED) {
@@ -748,7 +748,7 @@ public class NotificationService {
         return null;
     }
 
-    private Message getFirstLocationMessage(final Iterable<Message> messages) {
+    public Message getFirstLocationMessage(final Iterable<Message> messages) {
         for (final Message message : messages) {
             if (message.isGeoUri()) {
                 return message;

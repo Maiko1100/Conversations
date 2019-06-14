@@ -84,7 +84,7 @@ public class RecordingActivity extends Activity implements View.OnClickListener 
 		}
 	}
 
-	private boolean startRecording() {
+	public boolean startRecording() {
 		mRecorder = new MediaRecorder();
 		mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
 		mRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
@@ -95,6 +95,7 @@ public class RecordingActivity extends Activity implements View.OnClickListener 
 		mRecorder.setOutputFile(mOutputFile.getAbsolutePath());
 
 		try {
+			System.out.println("ik kom hier");
 			mRecorder.prepare();
 			mRecorder.start();
 			mStartTime = SystemClock.elapsedRealtime();
