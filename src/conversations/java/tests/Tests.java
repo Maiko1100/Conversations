@@ -41,56 +41,56 @@ public class Tests {
 
 
 
-    @Test
-    public void shouldCreateMessagePacket() {
-        // Arrange
-        MessageGenerator messageGenerator = new MessageGenerator(xmppConnectionService);
+//    @Test
+//    public void shouldCreateMessagePacket() {
+//        // Arrange
+//        MessageGenerator messageGenerator = new MessageGenerator(xmppConnectionService);
+//
+//        Jid senderJit = Jid.of("pieter", Config.MAGIC_CREATE_DOMAIN, null);
+//        Jid receiverJit = Jid.of("peter", Config.MAGIC_CREATE_DOMAIN, null);
+//        String password = "password";
+//        Account sendAccount = new Account(senderJit, password);
+//        Account receiveAccount = new Account(receiverJit, password);
+//
+//        MessagePacket assertPacket = new MessagePacket();
+//        assertPacket.setFrom(sendAccount.getJid());
+//        assertPacket.setTo(receiveAccount.getJid());
+//
+//        // Act
+//        MessagePacket createdPacket = messageGenerator.received(sendAccount, receiveAccount.getJid(), "randomId");
+//
+//        // Assert
+//        assertSame(createdPacket.getFrom(), assertPacket.getFrom());
+//        assertSame(createdPacket.getTo(), assertPacket.getTo());
+//
+//    }
 
-        Jid senderJit = Jid.of("pieter", Config.MAGIC_CREATE_DOMAIN, null);
-        Jid receiverJit = Jid.of("peter", Config.MAGIC_CREATE_DOMAIN, null);
-        String password = "password";
-        Account sendAccount = new Account(senderJit, password);
-        Account receiveAccount = new Account(receiverJit, password);
-
-        MessagePacket assertPacket = new MessagePacket();
-        assertPacket.setFrom(sendAccount.getJid());
-        assertPacket.setTo(receiveAccount.getJid());
-
-        // Act
-        MessagePacket createdPacket = messageGenerator.received(sendAccount, receiveAccount.getJid(), "randomId");
-
-        // Assert
-        assertSame(createdPacket.getFrom(), assertPacket.getFrom());
-        assertSame(createdPacket.getTo(), assertPacket.getTo());
-
-    }
-
-    @Test
-    public void shouldInviteForConversation() {
-        // Arrange
-        Jid senderJit = Jid.of("pieter", Config.MAGIC_CREATE_DOMAIN, null);
-        Jid receiverJit = Jid.of("peter", Config.MAGIC_CREATE_DOMAIN, null);
-        String password = "password";
-        Account sendAccount = new Account(senderJit, password);
-        Account receiveAccount = new Account(receiverJit, password);
-
-
-        Conversation conversation = new Conversation("testConversation", sendAccount, receiveAccount.getJid(),
-                Conversation.MODE_SINGLE);
-        MessageGenerator messageGenerator = new MessageGenerator(xmppConnectionService);
-
-        MessagePacket assertPacket = new MessagePacket();
-        assertPacket.setFrom(sendAccount.getJid());
-        assertPacket.setTo(receiveAccount.getJid());
-
-        // Act
-        MessagePacket createdPacket = messageGenerator.invite(conversation, receiveAccount.getJid());
-
-        // Assert
-        assertSame(createdPacket.getFrom(), assertPacket.getFrom());
-        assertSame(createdPacket.getTo(), assertPacket.getTo());
-
-    }
+//    @Test
+//    public void shouldInviteForConversation() {
+//        // Arrange
+//        Jid senderJit = Jid.of("pieter", Config.MAGIC_CREATE_DOMAIN, null);
+//        Jid receiverJit = Jid.of("peter", Config.MAGIC_CREATE_DOMAIN, null);
+//        String password = "password";
+//        Account sendAccount = new Account(senderJit, password);
+//        Account receiveAccount = new Account(receiverJit, password);
+//
+//
+//        Conversation conversation = new Conversation("testConversation", sendAccount, receiveAccount.getJid(),
+//                Conversation.MODE_SINGLE);
+//        MessageGenerator messageGenerator = new MessageGenerator(xmppConnectionService);
+//
+//        MessagePacket assertPacket = new MessagePacket();
+//        assertPacket.setFrom(sendAccount.getJid());
+//        assertPacket.setTo(receiveAccount.getJid());
+//
+//        // Act
+//        MessagePacket createdPacket = messageGenerator.invite(conversation, receiveAccount.getJid());
+//
+//        // Assert
+//        assertSame(createdPacket.getFrom(), assertPacket.getFrom());
+//        assertSame(createdPacket.getTo(), assertPacket.getTo());
+//
+//    }
 
     @Test
     public void shouldNotDisplaySnoozeAction() {
