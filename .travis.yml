@@ -12,6 +12,7 @@ android:
 script:
     - ./gradlew assembleConversationsFreeSystemRelease
     - ./gradlew assembleQuicksyFreeCompatRelease
+    - ./gradlew clean test
 
 before_install:
     - yes | sdkmanager "platforms;android-28"
