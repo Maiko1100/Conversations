@@ -98,10 +98,10 @@ public class InvalidJid implements Jid {
 		throw new AssertionError("Not implemented");
 	}
 
-	@Override
-	public String getEscapedLocal() {
-		throw new AssertionError("Not implemented");
-	}
+//	@Override
+//	public String getEscapedLocal() {
+//		throw new AssertionError("Not implemented");
+//	}
 
 	@Override
 	public String getDomain() {

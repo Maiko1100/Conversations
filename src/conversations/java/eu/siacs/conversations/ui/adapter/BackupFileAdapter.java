@@ -124,6 +124,7 @@ public class BackupFileAdapter extends RecyclerView.Adapter<BackupFileAdapter.Ba
             try {
                 task.execute(jid);
             } catch (final RejectedExecutionException ignored) {
+                throw ignored;
             }
         }
     }

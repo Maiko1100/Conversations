@@ -110,10 +110,10 @@ public class WelcomeActivity extends XmppActivity {
                 Toast.makeText(this, R.string.no_storage_permission, Toast.LENGTH_SHORT).show();
             }
         }
-        if (writeGranted(grantResults, permissions)) {
-            if (xmppConnectionService != null) {
+        if (writeGranted(grantResults, permissions) && xmppConnectionService != null) {
+
                 xmppConnectionService.restartFileObserver();
-            }
+
         }
     }
 
