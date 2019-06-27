@@ -117,24 +117,28 @@ public class ImportBackupService extends Service {
                     Log.d(Config.LOGTAG, "directory not found: " + directory.getAbsolutePath());
                     continue;
                 }
-                for (File file : directory.listFiles()) {
-                    if (file.isFile() && file.getName().endsWith(".ceb")) {
-                        try {
-                            final BackupFile backupFile = BackupFile.read(file);
-                            if (accounts.contains(backupFile.getHeader().getJid())) {
-                                Log.d(Config.LOGTAG,"skipping backup for "+backupFile.getHeader().getJid());
-                            } else {
-                                backupFiles.add(backupFile);
-                            }
-                        } catch (IOException e) {
-                            Log.d(Config.LOGTAG, "unable to read backup file ", e);
-                        }
-                    }
-                }
+                readBackupFile(directory,accounts,backupFiles);
+
             }
             Collections.sort(backupFiles, (a, b) -> a.header.getJid().toString().compareTo(b.header.getJid().toString()));
             onBackupFilesLoaded.onBackupFilesLoaded(backupFiles);
         });
+    }
+    private void  readBackupFile(File directory, List<Jid> accounts,ArrayList<BackupFile> backupFiles) {
+        for (File file : directory.listFiles()) {
+            if (file.isFile() && file.getName().endsWith(".ceb")) {
+                try {
+                    final BackupFile backupFile = BackupFile.read(file);
+                    if (accounts.contains(backupFile.getHeader().getJid())) {
+                        Log.d(Config.LOGTAG,"skipping backup for "+backupFile.getHeader().getJid());
+                    } else {
+                        backupFiles.add(backupFile);
+                    }
+                } catch (IOException e) {
+                    Log.d(Config.LOGTAG, "unable to read backup file ", e);
+                }
+            }
+        }
     }
 
     private void startForegroundService() {
