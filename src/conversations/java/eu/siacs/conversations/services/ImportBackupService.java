@@ -148,7 +148,37 @@ public class ImportBackupService extends Service {
                 .setProgress(1, 0, true);
         startForeground(NOTIFICATION_ID, mBuilder.build());
     }
-
+    private void readLines(String line, StringBuilder multiLineQuery,SQLiteDatabase db){
+        int count = count(line, '\'');
+                if (multiLineQuery != null) {
+                    multiLineQuery.append('\n');
+                    multiLineQuery.append(line);
+                    if (count % 2 == 1) {
+                        db.execSQL(multiLineQuery.toString());
+                        multiLineQuery = null;
+                    }
+                } else {
+                    if (count % 2 == 0) {
+                        db.execSQL(line);
+                    } else {
+                        multiLineQuery = new StringBuilder(line);
+                    }
+                }
+    }
+    private void setInDb(BackupFileHeader backupFileHeader,SQLiteDatabase db){
+        final Jid jid = backupFileHeader.getJid();
+        Cursor countCursor = db.rawQuery("select count(messages.uuid) from messages join conversations on conversations.uuid=messages.conversationUuid join accounts on conversations.accountUuid=accounts.uuid where accounts.username=? and accounts.server=?", new String[]{jid.getEscapedLocal(), jid.getDomain()});
+        countCursor.moveToFirst();
+        int count = countCursor.getInt(0);
+        Log.d(Config.LOGTAG, "restored " + count + " messages");
+        countCursor.close();
+        stopBackgroundService();
+        synchronized (mOnBackupProcessedListeners) {
+            for (OnBackupProcessed l : mOnBackupProcessedListeners) {
+                l.onBackupRestored();
+            }
+        }
+    }
     private boolean importBackup(File file, String password) {
         Log.d(Config.LOGTAG, "importing backup from file " + file.getAbsolutePath());
         try {
@@ -169,35 +199,12 @@ public class ImportBackupService extends Service {
             BufferedReader reader = new BufferedReader(new InputStreamReader(gzipInputStream, "UTF-8"));
             String line;
             StringBuilder multiLineQuery = null;
+
             while ((line = reader.readLine()) != null) {
-                int count = count(line, '\'');
-                if (multiLineQuery != null) {
-                    multiLineQuery.append('\n');
-                    multiLineQuery.append(line);
-                    if (count % 2 == 1) {
-                        db.execSQL(multiLineQuery.toString());
-                        multiLineQuery = null;
-                    }
-                } else {
-                    if (count % 2 == 0) {
-                        db.execSQL(line);
-                    } else {
-                        multiLineQuery = new StringBuilder(line);
-                    }
-                }
+                readLines(line , multiLineQuery ,db);
             }
-            final Jid jid = backupFileHeader.getJid();
-            Cursor countCursor = db.rawQuery("select count(messages.uuid) from messages join conversations on conversations.uuid=messages.conversationUuid join accounts on conversations.accountUuid=accounts.uuid where accounts.username=? and accounts.server=?", new String[]{jid.getEscapedLocal(), jid.getDomain()});
-            countCursor.moveToFirst();
-            int count = countCursor.getInt(0);
-            Log.d(Config.LOGTAG, "restored " + count + " messages");
-            countCursor.close();
-            stopBackgroundService();
-            synchronized (mOnBackupProcessedListeners) {
-                for (OnBackupProcessed l : mOnBackupProcessedListeners) {
-                    l.onBackupRestored();
-                }
-            }
+
+            setInDb(backupFileHeader,db);
             return true;
         } catch (Exception e) {
             Throwable throwable = e.getCause();
