@@ -70,21 +70,27 @@ public class XmppDomainVerifier implements DomainHostnameVerifier {
         }
     }
 
+    private static boolean setOffset(int offset,String needle,String entry){
+        while (offset < needle.length()) {
+            int i = needle.indexOf('.', offset);
+            if (i < 0) {
+                break;
+            }
+            Log.d(LOGTAG, "comparing " + needle.substring(i) + " and " + entry.substring(1));
+            if (needle.substring(i).equals(entry.substring(1))) {
+                Log.d(LOGTAG, "domain " + needle + " matched " + entry);
+                return true;
+            }
+            offset = i + 1;
+        }
+        return false;
+    }
     private static boolean matchDomain(String needle, List<String> haystack) {
         for (String entry : haystack) {
             if (entry.startsWith("*.")) {
                 int offset = 0;
-                while (offset < needle.length()) {
-                    int i = needle.indexOf('.', offset);
-                    if (i < 0) {
-                        break;
-                    }
-                    Log.d(LOGTAG, "comparing " + needle.substring(i) + " and " + entry.substring(1));
-                    if (needle.substring(i).equals(entry.substring(1))) {
-                        Log.d(LOGTAG, "domain " + needle + " matched " + entry);
-                        return true;
-                    }
-                    offset = i + 1;
+                if(setOffset(offset,needle,entry)){
+                    return true;
                 }
             } else {
                 if (entry.equals(needle)) {
